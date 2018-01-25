@@ -1,0 +1,1 @@
+The app is data container of the donor details

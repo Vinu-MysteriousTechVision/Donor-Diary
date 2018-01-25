@@ -1,0 +1,2 @@
+json_key_file "/Users/vinu/Documents/Project/Google\ Play\ Android\ Developer-8a04a63e766b.json" # Path to the json secret file - Follow https://docs.fastlane.tools/actions/supply/#setup to get one
+package_name "com.donordiary" # e.g. com.krausefx.app
