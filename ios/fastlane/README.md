@@ -21,16 +21,16 @@ or alternatively using `brew cask install fastlane`
 fastlane ios test
 ```
 Runs all the tests
-### ios release
+### ios upload_new_app
 ```
-fastlane ios release
+fastlane ios upload_new_app
 ```
 
 ### ios provision
 ```
 fastlane ios provision
 ```
-
+Create provision profile for the project
 ### ios build
 ```
 fastlane ios build
@@ -41,6 +41,11 @@ Create ipa
 fastlane ios upload
 ```
 Upload to App Store and submit for review
+### ios submit_to_release
+```
+fastlane ios submit_to_release
+```
+build and upload to App Store
 
 ----
 

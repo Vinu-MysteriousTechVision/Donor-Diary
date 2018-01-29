@@ -28,7 +28,8 @@ platform :ios do
     scan
   end
 
-  lane :release do
+  desc "Create new application and upload to the appstore"
+  lane :upload_new_app do
     produce(
       username: 'sysadmin@innovaturelabs.com',
       app_identifier: 'com.innovaturetech.donordiary',
@@ -37,9 +38,9 @@ platform :ios do
       app_version: '1.0',
       sku: 'DonorDiary1801'
     )
-    deliver
   end
 
+  desc "Create provision profile for the project"
   lane :provision do
     cert
     sigh(app_identifier: "com.innovaturetech.donordiary",
@@ -65,6 +66,12 @@ platform :ios do
     deliver(
       submit_for_review: true,
     )
+  end
+
+  desc "build and upload to App Store"
+  lane :submit_to_release do
+    build
+    upload
   end
 
   error do |lane, exception|
