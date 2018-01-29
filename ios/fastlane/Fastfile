@@ -19,9 +19,7 @@ platform :ios do
       branch: 'develop'
     )
     git_branch
-    ensure_git_status_clean
-
-
+    # ensure_git_status_clean
     git_pull
   end
 
@@ -50,6 +48,12 @@ platform :ios do
          filename: "DonorDiaryAppInHouse.mobileprovision")
   end
 
+  desc "Git Actions"
+  lane :git_action do
+    git_commit(path: ".", message: "Version incremeneted")
+    push_to_git_remote
+  end
+
   desc "Create ipa"
   lane :build do
     # ensure_git_status_clean
@@ -60,9 +64,8 @@ platform :ios do
     gym(clean: true,
         scheme: "DonorDiary")
 
-    git_commit(message: "Version incremeneted")
+    git_commit(path: ".", message: "Version incremeneted")
     push_to_git_remote
-
   end
 
   desc "Upload to App Store and submit for review"
