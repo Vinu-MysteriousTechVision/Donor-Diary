@@ -16,16 +16,31 @@ or alternatively using `brew cask install fastlane`
 
 # Available Actions
 ## iOS
-### ios custom_lane
+### ios test
 ```
-fastlane ios custom_lane
+fastlane ios test
 ```
-Description of what the lane does
+Runs all the tests
+### ios release
+```
+fastlane ios release
+```
+
 ### ios provision
 ```
 fastlane ios provision
 ```
-Creating a code signing certificate and provisioning profile
+
+### ios build
+```
+fastlane ios build
+```
+Create ipa
+### ios upload
+```
+fastlane ios upload
+```
+Upload to App Store and submit for review
 
 ----
 

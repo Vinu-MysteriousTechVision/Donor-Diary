@@ -12,28 +12,64 @@
 default_platform(:ios)
 
 platform :ios do
-  desc "Description of what the lane does"
-  lane :custom_lane do
-    # add actions here: https://docs.fastlane.tools/actions
+
+  before_all do
+
+    ensure_git_branch(
+      branch: 'develop'
+    )
+    git_branch
+    ensure_git_status_clean
+
+
+    git_pull
   end
 
-  # 1
-  desc "Creating a code signing certificate and provisioning profile"
-  # 2
-  lane :provision do
-    # 3
+  desc "Runs all the tests"
+  lane :test do
+    scan
+  end
+
+  lane :release do
     produce(
+      username: 'sysadmin@innovaturelabs.com',
+      app_identifier: 'com.innovaturetech.donordiary',
       app_name: 'Donor Diary',
       language: 'English',
-      app_version: '1.0.0',
-      sku: '123abc',
-      app_identifier: 'com.innovaturetech.donordiary',
-      username: 'sysadmin@innovaturelabs.com'
+      app_version: '1.0',
+      sku: 'DonorDiary1801'
     )
-    # 4
+    deliver
+  end
+
+  lane :provision do
     cert
-    # 5
-    sigh(force: true)
+    sigh(app_identifier: "com.innovaturetech.donordiary",
+         provisioning_name: "DonorDiaryAppInAppStore",
+         username: "sysadmin@innovaturelabs.com",
+         filename: "DonorDiaryAppInHouse.mobileprovision")
+  end
+
+  desc "Create ipa"
+  lane :build do
+    # ensure_git_status_clean
+    increment_build_number
+    increment_version_number(
+      bump_type: "minor" # Automatically increment minor version number
+    )
+    gym(clean: true,
+        scheme: "DonorDiary")
+
+    git_commit(message: "Version incremeneted")
+    push_to_git_remote
+
+  end
+
+  desc "Upload to App Store and submit for review"
+  lane :upload do
+    deliver(
+      submit_for_review: true,
+    )
   end
 
   error do |lane, exception|

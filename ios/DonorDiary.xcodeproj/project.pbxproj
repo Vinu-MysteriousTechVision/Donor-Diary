@@ -607,6 +607,7 @@
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
 						CreatedOnToolsVersion = 6.2;
+						ProvisioningStyle = Automatic;
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
@@ -1027,6 +1028,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = "";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -1039,6 +1042,7 @@
 					"-lc++",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DonorDiary.app/DonorDiary";
 			};
 			name = Debug;
@@ -1047,7 +1051,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = DonorDiaryTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -1056,6 +1062,7 @@
 					"-lc++",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DonorDiary.app/DonorDiary";
 			};
 			name = Release;
@@ -1065,7 +1072,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 7;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = 2633M77RVP;
 				INFOPLIST_FILE = DonorDiary/Info.plist;
@@ -1077,8 +1084,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.innovaturetech.donordiary;
 				PRODUCT_NAME = DonorDiary;
-				PROVISIONING_PROFILE = "06ce4c5e-068f-4264-9d26-1675f877ff35";
-				PROVISIONING_PROFILE_SPECIFIER = "com.innovaturetech.donordiary AppStore";
+				PROVISIONING_PROFILE = "def8ac4e-26cc-402f-9472-0964f785357c";
+				PROVISIONING_PROFILE_SPECIFIER = DonorDiaryAppInAppStore;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -1088,7 +1095,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_TEAM = 2633M77RVP;
 				INFOPLIST_FILE = DonorDiary/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1099,8 +1106,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.innovaturetech.donordiary;
 				PRODUCT_NAME = DonorDiary;
-				PROVISIONING_PROFILE = "06ce4c5e-068f-4264-9d26-1675f877ff35";
-				PROVISIONING_PROFILE_SPECIFIER = "com.innovaturetech.donordiary AppStore";
+				PROVISIONING_PROFILE = "def8ac4e-26cc-402f-9472-0964f785357c";
+				PROVISIONING_PROFILE_SPECIFIER = DonorDiaryAppInAppStore;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;

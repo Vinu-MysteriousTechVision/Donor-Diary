@@ -51,3 +51,10 @@ buck-out/
 */fastlane/report.xml
 */fastlane/Preview.html
 */fastlane/screenshots
+
+*.cer
+*.app.dSYM.zip
+*.mobileprovision
+Preview.html
+*/fastlane/test_output
+*/fastlane/README.md
