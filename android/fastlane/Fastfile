@@ -19,7 +19,7 @@ platform :android do
       branch: 'develop'
     )
     git_branch
-    # ensure_git_status_clean
+    ensure_git_status_clean
     git_pull
   end
 
@@ -43,8 +43,8 @@ platform :android do
     elsif (options[:incrementVersion]=='major')
       gradle(task: "doBuildVersionIncrement")
       gradle(task: "doMajorVersionIncrement")
-      # gradle(task: "clean")
-      # gradle(task: "assembleRelease")
+      gradle(task: "clean")
+      gradle(task: "assembleRelease")
     else
       gradle(task: "doBuildVersionIncrement")
       gradle(task: "clean")

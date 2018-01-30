@@ -25,7 +25,7 @@ Runs all the tests
 ```
 fastlane ios upload_new_app
 ```
-
+Create new application and upload to the appstore
 ### ios provision
 ```
 fastlane ios provision
