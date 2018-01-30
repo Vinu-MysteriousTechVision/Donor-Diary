@@ -21,26 +21,21 @@ or alternatively using `brew cask install fastlane`
 fastlane android test
 ```
 Runs all the tests
-### android beta
-```
-fastlane android beta
-```
-Submit a new Beta Build to Crashlytics Beta
-### android incrementVersion
-```
-fastlane android incrementVersion
-```
-Increment the version - use version:[major|minor] for versioning eg: fastlane incrementVersion version:major
 ### android build
 ```
 fastlane android build
 ```
-Build App
+Builds and pushes version to app - use versionChange:[major|minor|patch] for versioning
 ### android deploy
 ```
 fastlane android deploy
 ```
 Deploy a new version to the Google Play
+### android submit_to_release
+```
+fastlane android submit_to_release
+```
+build and upload to Play Store
 
 ----
 
