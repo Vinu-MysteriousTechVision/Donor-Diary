@@ -15,7 +15,7 @@ import ViewPager from 'react-native-viewpager';
 import ImageResizer from 'react-native-image-resizer';
 import RNGooglePlaces from 'react-native-google-places';
 import FetchBlob from 'react-native-fetch-blob';
-import Dialogue from 'react-native-dialogue';
+import Dialogue from 'react-native-dialog';
 import CustomComponents from 'react-native-deprecated-custom-components';
 import codePush from 'react-native-code-push';
 
