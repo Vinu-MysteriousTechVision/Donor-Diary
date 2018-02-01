@@ -21,21 +21,26 @@ or alternatively using `brew cask install fastlane`
 fastlane android test
 ```
 Runs all the tests
+### android sampleTest
+```
+fastlane android sampleTest
+```
+
 ### android build
 ```
 fastlane android build
 ```
-Builds and pushes version to app - use versionChange:[major|minor|patch] for versioning
+Builds and pushes version to app - use incrementVersion:[major|minor|patch] for versioning
 ### android deploy
 ```
 fastlane android deploy
 ```
-Deploy a new version to the Google Play
+Deploy a new version to the Play store
 ### android submit_to_release
 ```
 fastlane android submit_to_release
 ```
-build and upload to Play Store
+Build and upload to Play Store
 
 ----
 

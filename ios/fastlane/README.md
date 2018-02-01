@@ -35,7 +35,7 @@ Create provision profile for the project
 ```
 fastlane ios build
 ```
-Create ipa
+Builds and pushes version to app - use incrementVersion:[major|minor|patch] for versioning
 ### ios upload
 ```
 fastlane ios upload

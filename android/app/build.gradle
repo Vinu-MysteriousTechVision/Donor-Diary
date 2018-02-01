@@ -301,25 +301,33 @@ task copyDownloadableDepsToLibs(type: Copy) {
 }
 
 //
-task doMajorVersionIncrement << {
-  println "Incrementing major version..."
-  incrementVersionNumber('major')
+task doMajorVersionIncrement {
+  doLast {
+    println "Incrementing major version..."
+    incrementVersionNumber('major')
+  }
 }
 
 //
-task doMinorVersionIncrement << {
+task doMinorVersionIncrement {
+  doLast {
   println "Incrementing minor version..."
   incrementVersionNumber('minor')
+  }
 }
 
 //
-task doPatchVersionIncrement << {
+task doPatchVersionIncrement {
+  doLast {
   println "Incrementing patch version..."
   incrementVersionNumber('patch')
+  }
 }
 
 //
-task doBuildVersionIncrement << {
-  println "Incrementing build version..."
-  incrementBuildNumber()
+task doBuildVersionIncrement {
+  doLast {
+    println "Incrementing build version..."
+    incrementBuildNumber()
+  }
 }

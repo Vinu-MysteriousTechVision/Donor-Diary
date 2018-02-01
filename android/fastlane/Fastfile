@@ -12,7 +12,6 @@
 default_platform(:android)
 
 platform :android do
-  ############################## PRE ##############################
 
   before_all do
     ensure_git_branch(
@@ -28,39 +27,33 @@ platform :android do
     gradle(task: "test")
   end
 
-  desc "Builds and pushes version to app - use versionChange:[major|minor|patch] for versioning"
+  desc "Builds and pushes version to app - use incrementVersion:[major|minor|patch] for versioning"
   lane :build do |options|
     if (options[:incrementVersion]=='patch')
       gradle(task: "doBuildVersionIncrement")
       gradle(task: "doPatchVersionIncrement")
-      gradle(task: "clean")
-      gradle(task: "assembleRelease")
     elsif (options[:incrementVersion]=='minor')
       gradle(task: "doBuildVersionIncrement")
       gradle(task: "doMinorVersionIncrement")
-      gradle(task: "clean")
-      gradle(task: "assembleRelease")
     elsif (options[:incrementVersion]=='major')
       gradle(task: "doBuildVersionIncrement")
       gradle(task: "doMajorVersionIncrement")
-      gradle(task: "clean")
-      gradle(task: "assembleRelease")
     else
       gradle(task: "doBuildVersionIncrement")
-      gradle(task: "clean")
-      gradle(task: "assembleRelease")
     end
+    gradle(task: "clean")
+    gradle(task: "assembleRelease")
     git_commit(path: ".", message: "Version incremeneted")
     push_to_git_remote
   end
 
-  desc "Deploy a new version to the Google Play"
+  desc "Deploy a new version to the Play store"
   lane :deploy do
     gradle(task: "assembleRelease")
     upload_to_play_store
   end
 
-  desc "build and upload to Play Store"
+  desc "Build and upload to Play Store"
   lane :submit_to_release do |options|
     build incrementVersion:options[:incrementVersion]
     deploy

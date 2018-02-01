@@ -49,14 +49,31 @@ platform :ios do
          filename: "DonorDiaryAppInHouse.mobileprovision")
   end
 
-  desc "Create ipa"
-  lane :build do
-    increment_build_number
-    increment_version_number(
-      bump_type: "minor" # Automatically increment minor version number
-    )
-    gym(clean: true,
-        scheme: "DonorDiary")
+  desc "Builds and pushes version to app - use incrementVersion:[major|minor|patch] for versioning"
+  lane :build do |options|
+    if (options[:incrementVersion]=='patch')
+      increment_build_number
+      increment_version_number(
+        bump_type: "patch" # Automatically increment patch version number
+      )
+    elsif (options[:incrementVersion]=='minor')
+      increment_build_number
+      increment_version_number(
+        bump_type: "minor" # Automatically increment minor version number
+      )
+    elsif (options[:incrementVersion]=='major')
+      increment_build_number
+      increment_version_number(
+        bump_type: "major" # Automatically increment major version number
+      )
+    else
+      increment_build_number
+      increment_version_number(
+        bump_type: "minor" # Automatically increment minor version number
+      )
+    end
+    build_app(clean: true,
+              scheme: "DonorDiary")
     git_commit(path: ".", message: "Version incremeneted")
     push_to_git_remote
   end
@@ -69,8 +86,8 @@ platform :ios do
   end
 
   desc "build and upload to App Store"
-  lane :submit_to_release do
-    build
+  lane :submit_to_release do |options|
+    build incrementVersion:options[:incrementVersion]
     upload
   end
 
