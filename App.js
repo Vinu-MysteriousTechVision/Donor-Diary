@@ -11,6 +11,13 @@ import {
   Text,
   View
 } from 'react-native';
+import ViewPager from 'react-native-viewpager';
+import ImageResizer from 'react-native-image-resizer';
+import RNGooglePlaces from 'react-native-google-places';
+import FetchBlob from 'react-native-fetch-blob';
+import Dialogue from 'react-native-dialogue';
+import CustomComponents from 'react-native-deprecated-custom-components';
+import codePush from 'react-native-code-push';
 
 const instructions = Platform.select({
   ios: 'We Make A Living\nBy What We Get,\nBut We Make A Life\nBy What We Give',

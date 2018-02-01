@@ -1,0 +1,415 @@
+diff --git a/node_modules/react-native-deprecated-custom-components/src/Navigator.js b/node_modules/react-native-deprecated-custom-components/src/Navigator.js
+index fc7d068..588fa8a 100644
+--- a/node_modules/react-native-deprecated-custom-components/src/Navigator.js
++++ b/node_modules/react-native-deprecated-custom-components/src/Navigator.js
+@@ -35,7 +35,7 @@ import {
+   StyleSheet,
+   TVEventHandler,
+   View,
+-  ViewPropTypes,
++  ViewPropTypes
+ } from 'react-native';
+ 
+ var AnimationsDebugModule = NativeModules.AnimationsDebugModule;
+@@ -55,6 +55,7 @@ var rebound = require('rebound');
+ var flattenStyle = require('./flattenStyle');
+ 
+ var PropTypes = require('prop-types');
++var createClass = require('create-react-class');
+ 
+ // TODO: this is not ideal because there is no guarantee that the navigator
+ // is full screen, however we don't have a good way to measure the actual
+@@ -66,8 +67,8 @@ var SCENE_DISABLED_NATIVE_PROPS = {
+   style: {
+     top: SCREEN_HEIGHT,
+     bottom: -SCREEN_HEIGHT,
+-    opacity: 0,
+-  },
++    opacity: 0
++  }
+ };
+ 
+ var __uid = 0;
+@@ -87,7 +88,7 @@ function getRouteID(route) {
+       enumerable: false,
+       configurable: false,
+       writable: false,
+-      value: getuid(),
++      value: getuid()
+     });
+   }
+   return route[key];
+@@ -100,7 +101,7 @@ const BASE_SCENE_STYLE = {
+   left: 0,
+   right: 0,
+   bottom: 0,
+-  top: 0,
++  top: 0
+ };
+ 
+ const DEFAULT_SCENE_STYLE = {
+@@ -110,39 +111,39 @@ const DEFAULT_SCENE_STYLE = {
+   bottom: 0,
+   top: 0,
+   transform: [
+-    {translateX: 0},
+-    {translateY: 0},
+-    {scaleX: 1},
+-    {scaleY: 1},
+-    {rotate: '0deg'},
+-    {skewX: '0deg'},
+-    {skewY: '0deg'},
+-  ],
++    { translateX: 0 },
++    { translateY: 0 },
++    { scaleX: 1 },
++    { scaleY: 1 },
++    { rotate: '0deg' },
++    { skewX: '0deg' },
++    { skewY: '0deg' }
++  ]
+ };
+ 
+ // styles moved to the top of the file so getDefaultProps can refer to it
+ var styles = StyleSheet.create({
+   container: {
+     flex: 1,
+-    overflow: 'hidden',
++    overflow: 'hidden'
+   },
+   defaultSceneStyle: DEFAULT_SCENE_STYLE,
+   baseScene: BASE_SCENE_STYLE,
+   disabledScene: {
+     top: SCREEN_HEIGHT,
+-    bottom: -SCREEN_HEIGHT,
++    bottom: -SCREEN_HEIGHT
+   },
+   transitioner: {
+     flex: 1,
+     backgroundColor: 'transparent',
+-    overflow: 'hidden',
++    overflow: 'hidden'
+   }
+ });
+ 
+ var GESTURE_ACTIONS = [
+   'pop',
+   'jumpBack',
+-  'jumpForward',
++  'jumpForward'
+ ];
+ 
+ /**
+@@ -298,7 +299,7 @@ var GESTURE_ACTIONS = [
+  * See `Navigator.SceneConfigs` for default animations and more info on
+  * available [scene config options](docs/navigator.html#configurescene).
+  */
+-var Navigator = React.createClass({
++var Navigator = createClass({
+ 
+   propTypes: {
+     /**
+@@ -392,13 +393,13 @@ var Navigator = React.createClass({
+     /**
+      * Styles to apply to the container of each scene.
+      */
+-    sceneStyle: ViewPropTypes.style,
++    sceneStyle: ViewPropTypes.style
+   },
+ 
+   statics: {
+     BreadcrumbNavigationBar: NavigatorBreadcrumbNavigationBar,
+     NavigationBar: NavigatorNavigationBar,
+-    SceneConfigs: NavigatorSceneConfigs,
++    SceneConfigs: NavigatorSceneConfigs
+   },
+ 
+   mixins: [TimerMixin, InteractionMixin, Subscribable.Mixin],
+@@ -406,7 +407,7 @@ var Navigator = React.createClass({
+   getDefaultProps: function() {
+     return {
+       configureScene: () => NavigatorSceneConfigs.PushFromRight,
+-      sceneStyle: DEFAULT_SCENE_STYLE,
++      sceneStyle: DEFAULT_SCENE_STYLE
+     };
+   },
+ 
+@@ -439,7 +440,7 @@ var Navigator = React.createClass({
+       transitionFromIndex: null,
+       activeGesture: null,
+       pendingGestureProgress: null,
+-      transitionQueue: [],
++      transitionQueue: []
+     };
+   },
+ 
+@@ -465,13 +466,13 @@ var Navigator = React.createClass({
+       },
+       onSpringAtRest: () => {
+         this._completeTransition();
+-      },
++      }
+     });
+     this.panGesture = PanResponder.create({
+       onMoveShouldSetPanResponder: this._handleMoveShouldSetPanResponder,
+       onPanResponderRelease: this._handlePanResponderRelease,
+       onPanResponderMove: this._handlePanResponderMove,
+-      onPanResponderTerminate: this._handlePanResponderTerminate,
++      onPanResponderTerminate: this._handlePanResponderTerminate
+     });
+     this._interactionHandle = null;
+     this._emitWillFocus(this.state.routeStack[this.state.presentedIndex]);
+@@ -519,7 +520,7 @@ var Navigator = React.createClass({
+       presentedIndex: destIndex,
+       activeGesture: null,
+       transitionFromIndex: null,
+-      transitionQueue: [],
++      transitionQueue: []
+     }, () => {
+       this._handleSpringUpdate();
+       var navBar = this._navBar;
+@@ -541,7 +542,7 @@ var Navigator = React.createClass({
+       this.state.transitionQueue.push({
+         destIndex,
+         velocity,
+-        cb,
++        cb
+       });
+       return;
+     }
+@@ -653,7 +654,7 @@ var Navigator = React.createClass({
+   },
+ 
+   _emitDidFocus: function(route) {
+-    this.navigationContext.emit('didfocus', {route: route});
++    this.navigationContext.emit('didfocus', { route: route });
+ 
+     if (this.props.onDidFocus) {
+       this.props.onDidFocus(route);
+@@ -661,7 +662,7 @@ var Navigator = React.createClass({
+   },
+ 
+   _emitWillFocus: function(route) {
+-    this.navigationContext.emit('willfocus', {route: route});
++    this.navigationContext.emit('willfocus', { route: route });
+ 
+     var navBar = this._navBar;
+     if (navBar && navBar.handleWillFocus) {
+@@ -709,8 +710,8 @@ var Navigator = React.createClass({
+       pointerEvents: 'auto',
+       style: {
+         top: sceneStyle.top,
+-        bottom: sceneStyle.bottom,
+-      },
++        bottom: sceneStyle.bottom
++      }
+     };
+     if (sceneIndex !== this.state.transitionFromIndex &&
+         sceneIndex !== this.state.presentedIndex) {
+@@ -760,7 +761,7 @@ var Navigator = React.createClass({
+     if (viewAtIndex === null || viewAtIndex === undefined) {
+       return;
+     }
+-    viewAtIndex.setNativeProps({renderToHardwareTextureAndroid: shouldRenderToHardwareTexture});
++    viewAtIndex.setNativeProps({ renderToHardwareTextureAndroid: shouldRenderToHardwareTexture });
+   },
+ 
+   _handleTouchStart: function() {
+@@ -1016,7 +1017,7 @@ var Navigator = React.createClass({
+     var directionAdjustedProgress = fromIndex < toIndex ? progress : 1 - progress;
+     var didChange = useFn(styleToUse, directionAdjustedProgress);
+     if (didChange) {
+-      viewAtIndex.setNativeProps({style: styleToUse});
++      viewAtIndex.setNativeProps({ style: styleToUse });
+     }
+   },
+ 
+@@ -1100,7 +1101,7 @@ var Navigator = React.createClass({
+     this._emitWillFocus(nextStack[destIndex]);
+     this.setState({
+       routeStack: nextStack,
+-      sceneConfigStack: nextAnimationConfigStack,
++      sceneConfigStack: nextAnimationConfigStack
+     }, () => {
+       this._enableScene(destIndex);
+       this._transitionTo(destIndex, nextSceneConfig.defaultTransitionVelocity);
+@@ -1181,7 +1182,7 @@ var Navigator = React.createClass({
+     }
+     this.setState({
+       routeStack: nextRouteStack,
+-      sceneConfigStack: nextAnimationModeStack,
++      sceneConfigStack: nextAnimationModeStack
+     }, () => {
+       if (index === this.state.presentedIndex) {
+         this._emitDidFocus(route);
+@@ -1267,7 +1268,7 @@ var Navigator = React.createClass({
+     if (newStackLength < this.state.routeStack.length) {
+       this.setState({
+         sceneConfigStack: this.state.sceneConfigStack.slice(0, newStackLength),
+-        routeStack: this.state.routeStack.slice(0, newStackLength),
++        routeStack: this.state.routeStack.slice(0, newStackLength)
+       });
+     }
+   },
+@@ -1290,7 +1291,8 @@ var Navigator = React.createClass({
+           return (this.state.transitionFromIndex != null);
+         }}
+         pointerEvents={disabledScenePointerEvents}
+-        style={[styles.baseScene, this.props.sceneStyle, disabledSceneStyle]}>
++        style={[styles.baseScene, this.props.sceneStyle, disabledSceneStyle]}
++      >
+         {this.props.renderScene(
+           route,
+           this
+@@ -1312,7 +1314,7 @@ var Navigator = React.createClass({
+         }
+       },
+       navigator: this._navigationBarNavigator,
+-      navState: this.state,
++      navState: this.state
+     });
+   },
+ 
+@@ -1359,7 +1361,8 @@ var Navigator = React.createClass({
+           onTouchStart={this._handleTouchStart}
+           onResponderTerminationRequest={
+             this._handleResponderTerminationRequest
+-          }>
++          }
++        >
+           {scenes}
+         </View>
+         {this._renderNavigationBar()}
+diff --git a/node_modules/react-native-deprecated-custom-components/src/NavigatorBreadcrumbNavigationBar.js b/node_modules/react-native-deprecated-custom-components/src/NavigatorBreadcrumbNavigationBar.js
+index 704216e..3134b67 100644
+--- a/node_modules/react-native-deprecated-custom-components/src/NavigatorBreadcrumbNavigationBar.js
++++ b/node_modules/react-native-deprecated-custom-components/src/NavigatorBreadcrumbNavigationBar.js
+@@ -29,7 +29,7 @@ import {
+   Platform,
+   StyleSheet,
+   View,
+-  ViewPropTypes,
++  ViewPropTypes
+ } from 'react-native';
+ import React from 'react';
+ 
+@@ -50,11 +50,11 @@ const PropTypes = require('prop-types');
+ /**
+  * Reusable props objects.
+  */
+-const CRUMB_PROPS = Interpolators.map(() => ({style: {}}));
+-const ICON_PROPS = Interpolators.map(() => ({style: {}}));
+-const SEPARATOR_PROPS = Interpolators.map(() => ({style: {}}));
+-const TITLE_PROPS = Interpolators.map(() => ({style: {}}));
+-const RIGHT_BUTTON_PROPS = Interpolators.map(() => ({style: {}}));
++const CRUMB_PROPS = Interpolators.map(() => ({ style: {} }));
++const ICON_PROPS = Interpolators.map(() => ({ style: {} }));
++const SEPARATOR_PROPS = Interpolators.map(() => ({ style: {} }));
++const TITLE_PROPS = Interpolators.map(() => ({ style: {} }));
++const RIGHT_BUTTON_PROPS = Interpolators.map(() => ({ style: {} }));
+ 
+ 
+ function navStatePresentedIndex(navState) {
+@@ -86,18 +86,18 @@ class NavigatorBreadcrumbNavigationBar extends React.Component {
+       pop: PropTypes.func,
+       replace: PropTypes.func,
+       popToRoute: PropTypes.func,
+-      popToTop: PropTypes.func,
++      popToTop: PropTypes.func
+     }),
+     routeMapper: PropTypes.shape({
+       rightContentForRoute: PropTypes.func,
+       titleContentForRoute: PropTypes.func,
+-      iconForRoute: PropTypes.func,
++      iconForRoute: PropTypes.func
+     }),
+-    navState: React.PropTypes.shape({
+-      routeStack: React.PropTypes.arrayOf(React.PropTypes.object),
+-      presentedIndex: React.PropTypes.number,
++    navState: PropTypes.shape({
++      routeStack: PropTypes.arrayOf(PropTypes.object),
++      presentedIndex: PropTypes.number
+     }),
+-    style: ViewPropTypes.style,
++    style: ViewPropTypes.style
+   };
+ 
+   static Styles = NavigatorBreadcrumbNavigationBarStyles;
+@@ -141,7 +141,7 @@ class NavigatorBreadcrumbNavigationBar extends React.Component {
+     if (right && interpolate.RightItem(rightButtonStyle, amount)) {
+       right.setNativeProps({
+         style: rightButtonStyle,
+-        pointerEvents: rightButtonStyle.opacity === 0 ? 'none' : 'auto',
++        pointerEvents: rightButtonStyle.opacity === 0 ? 'none' : 'auto'
+       });
+     }
+   }
+@@ -171,7 +171,7 @@ class NavigatorBreadcrumbNavigationBar extends React.Component {
+ 
+   _setRenderViewsToHardwareTextureAndroid(index, renderToHardwareTexture) {
+     var props = {
+-      renderToHardwareTextureAndroid: renderToHardwareTexture,
++      renderToHardwareTextureAndroid: renderToHardwareTexture
+     };
+ 
+     this._setPropsIfExists('icon_' + index, props);
+@@ -193,7 +193,8 @@ class NavigatorBreadcrumbNavigationBar extends React.Component {
+     return (
+       <View
+         key={this._key}
+-        style={[styles.breadCrumbContainer, this.props.style]}>
++        style={[styles.breadCrumbContainer, this.props.style]}
++      >
+         {titles}
+         {icons}
+         {buttons}
+@@ -210,7 +211,7 @@ class NavigatorBreadcrumbNavigationBar extends React.Component {
+     this._key = guid();
+     this._descriptors = {
+       title: new Map(),
+-      right: new Map(),
++      right: new Map()
+     };
+   }
+ 
+@@ -233,7 +234,8 @@ class NavigatorBreadcrumbNavigationBar extends React.Component {
+         key={'crumb_' + index}
+         pointerEvents={pointerEvents}
+         ref={'crumb_' + index}
+-        style={firstStyles.Crumb}>
++        style={firstStyles.Crumb}
++      >
+         <View ref={'icon_' + index} style={firstStyles.Icon}>
+           {navBarRouteMapper.iconForRoute(route, this.props.navigator)}
+         </View>
+@@ -261,7 +263,8 @@ class NavigatorBreadcrumbNavigationBar extends React.Component {
+       <View
+         key={'title_' + index}
+         ref={'title_' + index}
+-        style={firstStyles.Title}>
++        style={firstStyles.Title}
++      >
+         {titleContent}
+       </View>
+     );
+@@ -286,7 +289,8 @@ class NavigatorBreadcrumbNavigationBar extends React.Component {
+       <View
+         key={'right_' + index}
+         ref={'right_' + index}
+-        style={firstStyles.RightItem}>
++        style={firstStyles.RightItem}
++      >
+         {rightContent}
+       </View>
+     );
+@@ -307,8 +311,8 @@ const styles = StyleSheet.create({
+     height: NavigatorNavigationBarStyles.General.TotalNavHeight,
+     top: 0,
+     left: 0,
+-    right: 0,
+-  },
++    right: 0
++  }
+ });
+ 
+ module.exports = NavigatorBreadcrumbNavigationBar;
