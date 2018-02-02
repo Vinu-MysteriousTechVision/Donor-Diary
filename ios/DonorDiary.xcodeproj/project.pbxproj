@@ -607,7 +607,8 @@
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
 						CreatedOnToolsVersion = 6.2;
-						ProvisioningStyle = Automatic;
+						DevelopmentTeam = 2633M77RVP;
+						ProvisioningStyle = Manual;
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
@@ -1029,7 +1030,8 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = "";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = 2633M77RVP;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -1052,8 +1054,9 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 2633M77RVP;
 				INFOPLIST_FILE = DonorDiaryTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -1071,6 +1074,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CURRENT_PROJECT_VERSION = 14;
 				DEAD_CODE_STRIPPING = NO;
@@ -1094,6 +1098,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CURRENT_PROJECT_VERSION = 14;
 				DEVELOPMENT_TEAM = 2633M77RVP;
@@ -1106,8 +1111,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.innovaturetech.donordiary;
 				PRODUCT_NAME = DonorDiary;
-				PROVISIONING_PROFILE = "c745a792-a613-425f-9a1c-034c63595d68";
-				PROVISIONING_PROFILE_SPECIFIER = DonorDiaryAdHoc;
+				PROVISIONING_PROFILE = "def8ac4e-26cc-402f-9472-0964f785357c";
+				PROVISIONING_PROFILE_SPECIFIER = DonorDiaryAppInAppStore;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
