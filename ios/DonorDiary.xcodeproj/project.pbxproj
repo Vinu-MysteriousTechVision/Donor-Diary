@@ -1075,7 +1075,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 14;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = 2633M77RVP;
@@ -1088,8 +1088,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.innovaturetech.donordiary;
 				PRODUCT_NAME = DonorDiary;
-				PROVISIONING_PROFILE = "c745a792-a613-425f-9a1c-034c63595d68";
-				PROVISIONING_PROFILE_SPECIFIER = DonorDiaryAdHoc;
+				PROVISIONING_PROFILE = "76c80a0a-df79-4989-be83-5b6fa133da58";
+				PROVISIONING_PROFILE_SPECIFIER = DonorDiaryDev;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
