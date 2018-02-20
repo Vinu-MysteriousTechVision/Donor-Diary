@@ -11,13 +11,6 @@ import {
   Text,
   View
 } from 'react-native';
-import ViewPager from 'react-native-viewpager';
-import ImageResizer from 'react-native-image-resizer';
-import RNGooglePlaces from 'react-native-google-places';
-import FetchBlob from 'react-native-fetch-blob';
-import Dialogue from 'react-native-dialog';
-import CustomComponents from 'react-native-deprecated-custom-components';
-import codePush from 'react-native-code-push';
 
 const instructions = Platform.select({
   ios: 'We Make A Living\nBy What We Get,\nBut We Make A Life\nBy What We Give',
@@ -28,7 +21,7 @@ export default class App extends Component<{}> {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>
+        <Text style={[styles.welcome, {color: 'red'}]}>
           Welcome
         </Text>
         <Text style={styles.instructions}>
@@ -55,5 +48,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: '#333333',
     marginBottom: 5,
+    fontSize: 20,
+    fontWeight: 'bold'
   },
 });
