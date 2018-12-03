@@ -1,0 +1,158 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+
+# default_platform(:ios)
+default_platform(:android)
+
+platform :ios do
+
+  before_all do
+
+    # ensure_git_branch(
+    #   branch: 'develop'
+    # )
+    # git_branch
+    # ensure_git_status_clean
+    # git_pull
+  end
+
+  desc "Runs all the tests"
+  lane :test do
+    scan
+  end
+
+  desc "Create new application and upload to the appstore"
+  lane :upload_new_app do
+    produce(
+      username: 'sysadmin@innovaturelabs.com',
+      app_identifier: 'com.innovaturetech.donordiary',
+      app_name: 'Donor Diary',
+      language: 'English',
+      app_version: '1.0',
+      sku: 'DonorDiary1801'
+    )
+  end
+
+  desc "Create provision profile for the project"
+  lane :provision do
+    cert
+    sigh(app_identifier: "com.innovaturetech.donordiary",
+         provisioning_name: "DonorDiaryAppInAppStore",
+         username: "sysadmin@innovaturelabs.com",
+         filename: "DonorDiaryAppInHouse.mobileprovision")
+  end
+
+  desc "Builds and pushes version to app - use incrementVersion:[major|minor|patch] for versioning"
+  lane :build do |options|
+    if (options[:incrementVersion]=='patch')
+      increment_build_number(xcodeproj: './ios/DonorDiary.xcodeproj')
+      increment_version_number(
+        bump_type: "patch", # Automatically increment patch version number
+        xcodeproj: './ios/DonorDiary.xcodeproj'
+      )
+    elsif (options[:incrementVersion]=='minor')
+      increment_build_number(xcodeproj: './ios/DonorDiary.xcodeproj')
+      increment_version_number(
+        bump_type: "minor", # Automatically increment minor version number
+        xcodeproj: './ios/DonorDiary.xcodeproj'
+      )
+    elsif (options[:incrementVersion]=='major')
+      increment_build_number(xcodeproj: './ios/DonorDiary.xcodeproj')
+      increment_version_number(
+        bump_type: "major", # Automatically increment major version number
+        xcodeproj: './ios/DonorDiary.xcodeproj'
+      )
+    else
+      increment_build_number(xcodeproj: './ios/DonorDiary.xcodeproj')
+      increment_version_number(
+        bump_type: "minor", # Automatically increment minor version number
+        xcodeproj: './ios/DonorDiary.xcodeproj'
+      )
+    end
+    build_app(clean: true,
+              scheme: "DonorDiary",
+              export_method: "ad-hoc",
+              project: './ios/DonorDiary.xcodeproj')
+    # git_commit(path: ".", message: "Version incremeneted")
+    # push_to_git_remote
+  end
+
+  desc "Upload to App Store and submit for review"
+  lane :upload do
+    deliver(
+      submit_for_review: true,
+    )
+  end
+
+  desc "build and upload to App Store"
+  lane :submit_to_release do |options|
+    build incrementVersion:options[:incrementVersion]
+    upload
+  end
+
+  error do |lane, exception|
+  # This block is called if there was an error running a lane.
+  end
+end
+
+platform :android do
+
+  before_all do
+    # ensure_git_branch(
+    #   branch: 'develop'
+    # )
+    # git_branch
+    # ensure_git_status_clean
+    # git_pull
+  end
+
+  desc "Runs all the tests"
+  lane :test do
+    gradle(task: "test")
+  end
+
+  desc "Builds and pushes version to app - use incrementVersion:[major|minor|patch] for versioning"
+  lane :build do |options|
+    if (options[:incrementVersion]=='patch')
+      gradle(task: "doBuildVersionIncrement", project_dir: "./android/")
+      gradle(task: "doPatchVersionIncrement", project_dir: "./android/")
+    elsif (options[:incrementVersion]=='minor')
+      gradle(task: "doBuildVersionIncrement", project_dir: "./android/")
+      gradle(task: "doMinorVersionIncrement", project_dir: "./android/")
+    elsif (options[:incrementVersion]=='major')
+      gradle(task: "doBuildVersionIncrement", project_dir: "./android/")
+      gradle(task: "doMajorVersionIncrement", project_dir: "./android/")
+    else
+      gradle(task: "doBuildVersionIncrement", project_dir: "./android/")
+    end
+    gradle(task: "clean", project_dir: "./android/")
+    # gradle(task: "assembleRelease", project_dir: "./android/")
+    # git_commit(path: ".", message: "Version incremeneted")
+    # push_to_git_remote
+  end
+
+  desc "Deploy a new version to the Play store"
+  lane :deploy do
+    gradle(task: "assembleRelease")
+    upload_to_play_store
+  end
+
+  desc "Build and upload to Play Store"
+  lane :submit_to_release do |options|
+    build incrementVersion:options[:incrementVersion]
+    deploy
+  end
+
+  error do |lane, exception|
+  # This block is called if there was an error running a lane.
+  end
+
+end

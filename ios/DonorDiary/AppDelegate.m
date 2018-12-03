@@ -8,9 +8,15 @@
  */
 
 #import "AppDelegate.h"
+#import <CodePush/CodePush.h>
 
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
+
+// **********************************************
+// *** DON'T MISS: THE NEXT LINE IS IMPORTANT ***
+// **********************************************
+#import "RCCManager.h"
 
 @implementation AppDelegate
 
@@ -18,8 +24,21 @@
 {
   NSURL *jsCodeLocation;
 
-  jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index" fallbackResource:nil];
 
+  #ifdef DEBUG
+      jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index" fallbackResource:nil];
+  #else
+      jsCodeLocation = [CodePush bundleURL];
+  #endif
+  
+  // **********************************************
+  // *** DON'T MISS: THIS IS HOW WE BOOTSTRAP *****
+  // **********************************************
+  self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+  self.window.backgroundColor = [UIColor whiteColor];
+  [[RCCManager sharedInstance] initBridgeWithBundleURL:jsCodeLocation launchOptions:launchOptions];
+
+  /*
   RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation
                                                       moduleName:@"DonorDiary"
                                                initialProperties:nil
@@ -31,6 +50,7 @@
   rootViewController.view = rootView;
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
+  */
   return YES;
 }
 
